@@ -1,0 +1,879 @@
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Christmas Surprise Box 🎄</title>  <style>  
+* {  
+    box-sizing: border-box;  
+}  
+  
+body {  
+    margin: 0;  
+    font-family: Georgia, serif;  
+    color: white;  
+    text-align: center;  
+    background: linear-gradient(180deg, #061b16, #103c2b, #071b18);  
+    overflow-x: hidden;  
+}  
+  
+header {  
+    padding: 30px 15px 15px;  
+}  
+  
+h1 {  
+    color: #ffe6a3;  
+    font-size: 34px;  
+    text-shadow: 0 0 15px gold;  
+}  
+  
+h2 {  
+    color: #ffe6a3;  
+}  
+  
+.subtitle {  
+    color: #ffccd5;  
+    font-size: 17px;  
+    line-height: 1.7;  
+}  
+  
+.date {  
+    display: inline-block;  
+    padding: 10px 16px;  
+    border: 1px solid #e8c878;  
+    border-radius: 20px;  
+    color: #ffe6a3;  
+    background: rgba(255,255,255,0.06);  
+}  
+  
+.intro {  
+    max-width: 600px;  
+    margin: 15px auto;  
+    padding: 0 20px;  
+    line-height: 1.8;  
+}  
+  
+.countdown {  
+    margin: 20px 12px;  
+    padding: 18px;  
+    border-radius: 18px;  
+    background: rgba(255,255,255,0.08);  
+    border: 1px solid rgba(255,215,130,0.4);  
+}  
+  
+.countdown strong {  
+    display: block;  
+    color: #ffe6a3;  
+    font-size: 25px;  
+    margin: 8px;  
+}  
+  
+.card {  
+    max-width: 600px;  
+    margin: 25px auto;  
+    padding: 22px;  
+    background: rgba(255,255,255,0.08);  
+    border: 1px solid rgba(255,215,130,0.5);  
+    border-radius: 20px;  
+    box-shadow: 0 0 25px rgba(255,215,0,0.12);  
+}  
+  
+.tree {  
+    position: relative;  
+    width: 280px;  
+    height: 350px;  
+    margin: 25px auto;  
+}  
+  
+.tree-top {  
+    position: absolute;  
+    top: -8px;  
+    left: 119px;  
+    color: gold;  
+    font-size: 45px;  
+    animation: glow 1.5s infinite alternate;  
+}  
+  
+.branch {  
+    position: absolute;  
+    left: 50%;  
+    transform: translateX(-50%);  
+    width: 0;  
+    height: 0;  
+    border-left: solid transparent;  
+    border-right: solid transparent;  
+    border-bottom: solid #087344;  
+    filter: drop-shadow(0 0 8px #07552f);  
+}  
+  
+.b1 {  
+    top: 30px;  
+    border-left-width: 65px;  
+    border-right-width: 65px;  
+    border-bottom-width: 100px;  
+}  
+  
+.b2 {  
+    top: 90px;  
+    border-left-width: 95px;  
+    border-right-width: 95px;  
+    border-bottom-width: 125px;  
+}  
+  
+.b3 {  
+    top: 165px;  
+    border-left-width: 125px;  
+    border-right-width: 125px;  
+    border-bottom-width: 140px;  
+}  
+  
+.trunk {  
+    position: absolute;  
+    top: 290px;  
+    left: 119px;  
+    width: 42px;  
+    height: 48px;  
+    background: #78421f;  
+    border-radius: 5px;  
+}  
+  
+.star {  
+    position: absolute;  
+    z-index: 3;  
+    color: gold;  
+    font-size: 28px;  
+    animation: glow 1.2s infinite alternate;  
+}  
+  
+.ball {  
+    position: absolute;  
+    z-index: 4;  
+    font-size: 24px;  
+    animation: glow 1.5s infinite alternate;  
+}  
+  
+/* Gifts hanging on the tree */  
+.hanging-gift {  
+    position: absolute;  
+    z-index: 5;  
+    padding: 0;  
+    margin: 0;  
+    border: none;  
+    background: transparent;  
+    font-size: 27px;  
+    cursor: pointer;  
+    animation: swing 2s infinite ease-in-out;  
+    transform-origin: top center;  
+}  
+  
+.hanging-gift::before {  
+    content: "";  
+    position: absolute;  
+    width: 2px;  
+    height: 17px;  
+    background: #ffe6a3;  
+    left: 50%;  
+    bottom: 85%;  
+}  
+  
+.gift {  
+    display: inline-block;  
+    margin: 8px;  
+    font-size: 42px;  
+    animation: float 2s infinite ease-in-out;  
+}  
+  
+button {  
+    border: none;  
+    border-radius: 30px;  
+    padding: 13px 22px;  
+    margin: 10px 5px;  
+    font-family: inherit;  
+    font-size: 16px;  
+    font-weight: bold;  
+    cursor: pointer;  
+    transition: 0.3s;  
+}  
+  
+button:hover {  
+    transform: scale(1.05);  
+}  
+  
+button:focus-visible {  
+    outline: 2px solid white;  
+    outline-offset: 4px;  
+}  
+  
+.letter-button {  
+    background: linear-gradient(135deg, #ffd76b, #ffad42);  
+    color: #54220c;  
+    box-shadow: 0 0 20px rgba(255,215,0,0.4);  
+}  
+  
+.memory-button {  
+    background: #f5d7e5;  
+    color: #641b3c;  
+}  
+  
+.wish-button {  
+    background: #d7f2e4;  
+    color: #124b32;  
+}  
+  
+.note {  
+    color: #ffe6a3;  
+    font-size: 14px;  
+    line-height: 1.8;  
+}  
+  
+.result {  
+    min-height: 55px;  
+    margin: 15px auto;  
+    max-width: 450px;  
+    padding: 12px;  
+    color: #ffe6a3;  
+    line-height: 1.8;  
+    overflow-wrap: anywhere;  
+}  
+  
+.wish-options {  
+    display: flex;  
+    justify-content: center;  
+    flex-wrap: wrap;  
+    gap: 8px;  
+}  
+  
+.wish-options button {  
+    background: rgba(255,255,255,0.12);  
+    color: white;  
+    border: 1px solid #e8c878;  
+}  
+  
+.wish-options button.selected {  
+    background: #ffe6a3;  
+    color: #173b2a;  
+}  
+  
+.gift-options {  
+    display: flex;  
+    justify-content: center;  
+    flex-wrap: wrap;  
+    gap: 10px;  
+}  
+  
+.gift-choice {  
+    background: rgba(255,255,255,0.09);  
+    border: 1px solid #e8c878;  
+    color: white;  
+    font-size: 30px;  
+    padding: 10px 15px;  
+}  
+  
+.gift-choice.selected {  
+    background: rgba(255,215,0,0.25);  
+    border-color: gold;  
+}  
+  
+footer {  
+    padding: 30px 15px;  
+    color: #ffd6dc;  
+    line-height: 1.8;  
+}  
+  
+.snow {  
+    position: fixed;  
+    top: -20px;  
+    color: white;  
+    pointer-events: none;  
+    z-index: 10;  
+    animation: fall linear forwards;  
+}  
+  
+@keyframes fall {  
+    to {  
+        transform: translateY(110vh) rotate(360deg);  
+    }  
+}  
+  
+@keyframes glow {  
+    from {  
+        text-shadow: 0 0 4px gold;  
+    }  
+    to {  
+        text-shadow: 0 0 18px gold, 0 0 25px white;  
+    }  
+}  
+  
+@keyframes float {  
+    0%, 100% {  
+        transform: translateY(0);  
+    }  
+    50% {  
+        transform: translateY(-8px);  
+    }  
+}  
+  
+@keyframes swing {  
+    0%, 100% {  
+        rotate: -5deg;  
+    }  
+    50% {  
+        rotate: 5deg;  
+    }  
+}  
+  
+@media(max-width: 400px) {  
+    h1 {  
+        font-size: 28px;  
+    }  
+  
+    .tree {  
+        transform: scale(0.9);  
+        transform-origin: top center;  
+        margin-bottom: 0;  
+    }  
+  
+    .card {  
+        margin: 15px 12px;  
+        padding: 17px;  
+    }  
+}  
+  
+@media(prefers-reduced-motion: reduce) {  
+    *, *::before, *::after {  
+        animation-duration: 0.01ms !important;  
+        animation-iteration-count: 1 !important;  
+        scroll-behavior: auto !important;  
+    }  
+}  
+</style>  </head>  <body>  <header>  
+    <h1>🎄 Christmas Wonderland 🎄</h1>  <p class="subtitle">  
+    ✨ A Little Christmas Surprise Box ✨  
+</p>  
+
+<p class="date" id="todayDate">📅 Loading date...</p>
+
+</header>  <section class="intro">  <p>  
+    Welcome to my little Christmas Wonderland! 🎄✨  
+    Leave a secret letter, share a beautiful memory,  
+    or write some sweet words to make someone smile. ❤️💌  
+</p>  
+
+<p>  
+    It doesn't have to be long or perfect—just write  
+    whatever comes from your heart. Every kind word  
+    and little memory adds a bit of magic to my Christmas tree! 🎁  
+</p>  
+
+<p>  
+      
+    Your message will stay private until I open it.   
+  🔒💌 I can't wait to read all your lovely messages and memories!  
+</p>  
+
+<p>  
+    <strong>  
+        Wishing you all a very Happy Christmas in advance! 🎅❤️  
+        
+      
+        
+    </strong>  
+</p>
+
+</section>  <div class="countdown">  
+    🎅 The magic of Christmas is coming!  <strong id="countdown">Loading...</strong>  
+
+<span id="countdownText">Until Christmas Day 🎄</span>
+
+</div>  <div class="card">  <h2>🎄 My Magical Christmas Tree 🎄</h2>  
+
+<p>Every little star holds a bit of Christmas magic! ✨</p>  
+
+<div class="tree" id="christmasTree">  
+
+    <div class="tree-top">★</div>  
+
+    <div class="branch b1"></div>  
+    <div class="branch b2"></div>  
+    <div class="branch b3"></div>  
+
+    <span class="star" style="top:65px;left:125px;">⭐</span>  
+    <span class="ball" style="top:105px;left:95px;">🔴</span>  
+    <span class="ball" style="top:135px;left:165px;">🟡</span>  
+    <span class="ball" style="top:175px;left:65px;">🔵</span>  
+    <span class="star" style="top:190px;left:125px;">⭐</span>  
+    <span class="ball" style="top:220px;left:190px;">🔴</span>  
+    <span class="ball" style="top:250px;left:95px;">🟡</span>  
+    <span class="ball" style="top:270px;left:165px;">🔵</span>  
+
+    <div class="trunk"></div>  
+
+    <!-- Gifts selected by visitors will be placed here. -->  
+
+</div>  
+
+<p class="note">  
+    🎁 Choose a gift below and hang it on the tree!  
+    Tap any hanging gift to reveal its surprise.  
+</p>  
+
+<div class="gift-options">  
+
+    <button class="gift-choice" data-gift="🎁" aria-label="Choose red gift">  
+        🎁  
+    </button>  
+
+    <button class="gift-choice" data-gift="🎀" aria-label="Choose ribbon gift">  
+        🎀  
+    </button>  
+
+    <button class="gift-choice" data-gift="💝" aria-label="Choose heart gift">  
+        💝  
+    </button>  
+
+    <button class="gift-choice" data-gift="🧸" aria-label="Choose teddy gift">  
+        🧸  
+    </button>  
+
+</div>  
+
+<button class="letter-button" id="hangGiftButton">  
+    ✨ Hang My Gift  
+</button>  
+
+<p class="result" id="giftMessage" aria-live="polite"></p>  
+
+<hr style="border-color:rgba(255,215,130,0.3);margin:25px 0;">  
+
+<h2>🎁 Little Gifts of Happiness 🎁</h2>  
+
+<div>  
+    <span class="gift">🎁</span>  
+    <span class="gift">🎄</span>  
+    <span class="gift">🎁</span>  
+</div>  
+
+<p>  
+    Every message is a little gift.  
+    What will you leave under my tree? ❤️  
+</p>  
+
+<button class="letter-button" onclick="openLetterForm()">  
+    💌 Click & Leave a Secret Letter  Here
+</button>  
+
+<p class="note">  
+    🔒 The letter form will be connected when the Google Form link is added.  
+</p>  
+
+<hr style="border-color:rgba(255,215,130,0.3);margin:25px 0;">  
+
+<h2>🤫 A Little Secret for You</h2>  
+
+<p>  
+    There might be something waiting for you...  
+    But you'll have to find out yourself! 🤭  
+</p>  
+
+<button class="memory-button" id="surpriseButton" onclick="showSurprise()">  
+    🎁 Open a Little Surprise  
+</button>  
+
+<p class="result" id="surpriseMessage" aria-live="polite"></p>  
+
+<hr style="border-color:rgba(255,215,130,0.3);margin:25px 0;">  
+
+<h2>❤️ A Little Christmas Note</h2>  
+
+<p>  
+    Sometimes, the smallest words can bring the biggest smiles.  
+    Here's a little kindness for your day.  
+</p>  
+
+<button class="letter-button" onclick="showNote()">  
+    💌 Read a Little Note  
+</button>  
+
+<p class="result" id="noteMessage" aria-live="polite"></p>  
+
+<hr style="border-color:rgba(255,215,130,0.3);margin:25px 0;">  
+
+<h2>⭐ Make a Christmas Wish</h2>  
+
+<p>What would you wish for this Christmas? 🎄</p>  
+
+<div class="wish-options">  
+
+    <button onclick="chooseWish(this, '❤️ Love and happiness')">  
+        ❤️ Love  
+    </button>  
+
+    <button onclick="chooseWish(this, '😊 More smiles')">  
+        😊 Happiness  
+    </button>  
+
+    <button onclick="chooseWish(this, '🌍 Peace for everyone')">  
+        🕊️ Peace  
+    </button>  
+
+    <button onclick="chooseWish(this, '✨ A beautiful new beginning')">  
+        ✨ New beginnings  
+    </button>  
+
+</div>  
+
+<p class="result" id="wishMessage" aria-live="polite"></p>  
+
+<button class="wish-button" onclick="saveWish()">  
+    ⭐ Make My Wish  
+</button>  
+
+<p class="note">  
+    Your wish stays in this page for now.  
+    It is not sent anywhere.  
+</p>
+
+</div>  <footer>  
+    Made with ❤️ and Christmas magic ✨<br>  
+    🎄 Merry Christmas in Advance! 🎄<br>  
+    <small>May your days be filled with love and happiness. 💌</small>  
+</footer>  <script>  
+  
+// ==========================================  
+// 1. DATE  
+// ==========================================  
+  
+function updateDate() {  
+    const now = new Date();  
+  
+    document.getElementById("todayDate").textContent =  
+        "📅 " + now.toLocaleDateString("en-IN", {  
+            day: "numeric",  
+            month: "long",  
+            year: "numeric"  
+        });  
+}  
+  
+updateDate();  
+  
+  
+// ==========================================  
+// 2. CHRISTMAS COUNTDOWN  
+// ==========================================  
+  
+function updateCountdown() {  
+    const now = new Date();  
+  
+    let christmas = new Date(  
+        now.getFullYear(), 11, 25, 0, 0, 0  
+    );  
+  
+    if (now >= christmas) {  
+        christmas = new Date(  
+            now.getFullYear() + 1, 11, 25, 0, 0, 0  
+        );  
+    }  
+  
+    const difference = christmas.getTime() - now.getTime();  
+  
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));  
+  
+    const hours = Math.floor(  
+        (difference / (1000 * 60 * 60)) % 24  
+    );  
+  
+    const minutes = Math.floor(  
+        (difference / (1000 * 60)) % 60  
+    );  
+  
+    const seconds = Math.floor(  
+        (difference / 1000) % 60  
+    );  
+  
+    document.getElementById("countdown").textContent =  
+        days + " days " +  
+        hours + " hours " +  
+        minutes + " minutes " +  
+        seconds + " seconds";  
+  
+    document.getElementById("countdownText").textContent =  
+        "Until Christmas Day 🎄";  
+}  
+  
+updateCountdown();  
+setInterval(updateCountdown, 1000);  
+  
+  
+// ==========================================  
+// 3. GOOGLE FORM CONNECTION  
+// ==========================================  
+  
+// Replace this with your Google Form RESPONDER link later.  
+  
+const formLink = "https://docs.google.com/forms/d/1y1KfsHn6Bw1AA8gWnH0sDTz7AQ3PM294NBTOV1iBxvQ/viewform";
+  
+function openLetterForm() {  
+  
+    if (  
+        !formLink.startsWith("https://") ||  
+        formLink === ""  
+    ) { "https://docs.google.com/forms/d/1y1KfsHn6Bw1AA8gWnH0sDTz7AQ3PM294NBTOV1iBxvQ/viewform";
+        alert(  
+            "The secret letter form has not been connected yet! 🎄"  
+        );  
+        return;  
+    }  
+  
+    window.open(formLink, "_blank", "noopener,noreferrer");  
+}  
+  
+  
+// ==========================================  
+// 4. MULTI-STEP SURPRISE  
+// ==========================================  
+  
+const surpriseSteps = [  
+    {  
+        button: "🤫 Continue...",  
+        message: "Psst... you found a little secret. Keep going! 🤭"  
+    },  
+    {  
+        button: "👀 Click Me Again",  
+        message: "Someone secretly prepared something for you... 🎁"  
+    },  
+    {  
+        button: "💌 One More Click",  
+        message: "Almost there! Don't give up on your little surprise. ✨"  
+    },  
+    {  
+        button: "🎄 Reveal My Surprise",  
+        message: "You are someone's beautiful Christmas memory! ❤️🎄"  
+    }  
+];  
+  
+let surpriseStep = -1;  
+  
+function showSurprise() {  
+  
+    const button = document.getElementById("surpriseButton");  
+    const message = document.getElementById("surpriseMessage");  
+  
+    surpriseStep++;  
+  
+    if (surpriseStep < surpriseSteps.length) {  
+  
+        message.textContent = surpriseSteps[surpriseStep].message;  
+  
+        button.textContent = surpriseSteps[surpriseStep].button;  
+  
+    } else {  
+  
+        const finalMessages = [  
+            "May your Christmas be full of love and happiness! 🎁✨",  
+            "A little kindness can make someone's whole day! 💌",  
+            "You deserve a Christmas filled with beautiful memories! ⭐",  
+            "Never forget that even a small smile can brighten someone's day. ❤️"  
+        ];  
+  
+        const randomMessage =  
+            finalMessages[  
+                Math.floor(Math.random() * finalMessages.length)  
+            ];  
+  
+        message.textContent = "🎄✨ " + randomMessage + " ✨🎄";  
+  
+        button.textContent = "🔄 Open Another Surprise";  
+  
+        surpriseStep = -1;  
+    }  
+}  
+  
+  
+// ==========================================  
+// 5. CHRISTMAS NOTES  
+// ==========================================  
+  
+const littleNotes = [  
+    "You don't need to be perfect to make someone's day better. ❤️",  
+    "May you always find reasons to smile, even on ordinary days. 😊",  
+    "Some of the best gifts cannot be wrapped. They come from the heart. 💌",  
+    "May this Christmas bring you peaceful days and beautiful memories. 🎄",  
+    "Never underestimate the power of one kind word. ✨"  
+];  
+  
+function showNote() {  
+  
+    const note =  
+        littleNotes[Math.floor(Math.random() * littleNotes.length)];  
+  
+    document.getElementById("noteMessage").textContent =  
+        "💌 " + note;  
+}  
+  
+  
+// ==========================================  
+// 6. CHRISTMAS WISHES  
+// ==========================================  
+  
+let selectedWish = "";  
+  
+function chooseWish(button, wish) {  
+  
+    selectedWish = wish;  
+  
+    document.querySelectorAll(".wish-options button").forEach(  
+        function(item) {  
+            item.classList.remove("selected");  
+        }  
+    );  
+  
+    button.classList.add("selected");  
+  
+    document.getElementById("wishMessage").textContent =  
+        "Your wish: " + wish;  
+}  
+  
+function saveWish() {  
+  
+    const message = document.getElementById("wishMessage");  
+  
+    if (!selectedWish) {  
+        message.textContent =  
+            "Choose a Christmas wish first! ⭐";  
+        return;  
+    }  
+  
+    message.textContent =  
+        "✨ May your wish bring a little more magic into your life! " +  
+        selectedWish + " ❤️";  
+}  
+  
+  
+// ==========================================  
+// 7. SELECT AND HANG GIFTS ON THE TREE  
+// ==========================================  
+  
+let selectedGift = "🎁";  
+let giftNumber = 0;  
+  
+const giftPositions = [  
+    { left: "90px", top: "120px" },  
+    { left: "165px", top: "150px" },  
+    { left: "115px", top: "185px" },  
+    { left: "65px", top: "220px" },  
+    { left: "185px", top: "235px" },  
+    { left: "120px", top: "260px" },  
+    { left: "80px", top: "275px" },  
+    { left: "170px", top: "280px" }  
+];  
+  
+const giftSurprises = [  
+    "May your days be filled with happiness! ❤️",  
+    "Someone wishes you a beautiful Christmas! 🎄",  
+    "Keep spreading kindness wherever you go. ✨",  
+    "May a lovely memory find its way to you. 💌",  
+    "Sending a little Christmas happiness your way! 🎁",  
+    "You deserve moments that make you smile. 😊",  
+    "May your Christmas be warm and peaceful. ⭐",  
+    "Never stop believing in little miracles. ❤️"  
+];  
+  
+document.querySelectorAll(".gift-choice").forEach(function(button) {  
+  
+    button.addEventListener("click", function() {  
+  
+        selectedGift = button.dataset.gift;  
+  
+        document.querySelectorAll(".gift-choice").forEach(  
+            function(item) {  
+                item.classList.remove("selected");  
+            }  
+        );  
+  
+        button.classList.add("selected");  
+  
+        document.getElementById("giftMessage").textContent =  
+            "You chose " + selectedGift +  
+            "! Now hang it on your tree. 🎄";  
+    });  
+  
+});  
+  
+document.getElementById("hangGiftButton").addEventListener(  
+    "click",  
+    function() {  
+  
+        const tree = document.getElementById("christmasTree");  
+  
+        if (giftNumber >= giftPositions.length) {  
+            document.getElementById("giftMessage").textContent =  
+                "Your tree is full of little gifts! 🎄❤️";  
+            return;  
+        }  
+  
+        const position = giftPositions[giftNumber];  
+  
+        const gift = document.createElement("button");  
+  
+        gift.className = "hanging-gift";  
+        gift.textContent = selectedGift;  
+        gift.style.left = position.left;  
+        gift.style.top = position.top;  
+  
+        gift.setAttribute(  
+            "aria-label",  
+            "Open Christmas gift " + (giftNumber + 1)  
+        );  
+  
+        const surprise = giftSurprises[giftNumber];  
+  
+        gift.addEventListener("click", function() {  
+  
+            document.getElementById("giftMessage").textContent =  
+                "🎁 " + surprise;  
+  
+        });  
+  
+        tree.appendChild(gift);  
+  
+        giftNumber++;  
+  
+        document.getElementById("giftMessage").textContent =  
+            "Your gift is hanging on the tree! Tap it to reveal a message. ❤️";  
+  
+    }  
+);  
+  
+  
+// ==========================================  
+// 8. FALLING SNOW  
+// ==========================================  
+  
+function createSnow() {  
+  
+    const snow = document.createElement("div");  
+  
+    snow.className = "snow";  
+    snow.textContent = Math.random() > 0.5 ? "❄" : "•";  
+  
+    snow.style.left = Math.random() * 100 + "vw";  
+  
+    snow.style.fontSize =  
+        (Math.random() * 12 + 10) + "px";  
+  
+    snow.style.opacity =  
+        Math.random() * 0.7 + 0.3;  
+  
+    const duration = Math.random() * 5 + 5;  
+  
+    snow.style.animationDuration = duration + "s";  
+  
+    document.body.appendChild(snow);  
+  
+    setTimeout(function() {  
+        snow.remove();  
+    }, duration * 1000);  
+}  
+  
+setInterval(createSnow, 400);  
+  
+</script>  </body>  
+</html>      
