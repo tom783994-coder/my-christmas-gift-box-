@@ -875,5 +875,29 @@ function createSnow() {
   
 setInterval(createSnow, 400);  
   
-</script>  </body>  
+</script> 
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDJJEr6NiAX4RivTnBMaL6SvWGRTapH_n8",
+    authDomain: "christmas-wonderland-5cac9.firebaseapp.com",
+    projectId: "christmas-wonderland-5cac9",
+    storageBucket: "christmas-wonderland-5cac9.firebasestorage.app",
+    messagingSenderId: "349322169326",
+    appId: "1:349322169326:web:c733fc23866970edbe9cff",
+    measurementId: "G-SPH8S58B42"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+    </script>
+</body>  
 </html>      
