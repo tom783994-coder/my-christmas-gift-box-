@@ -461,7 +461,7 @@ footer {
 </button>  
 
 <p class="note">  
-    🔒 The letter form will be connected when the Google Form link is added.  
+    🔒 YAHOOOOO 😂🎄🎁💚 Let's open the door to my secret Christmas place! 💌✨
 </p>  
 
 <hr style="border-color:rgba(255,215,130,0.3);margin:25px 0;">  
@@ -496,40 +496,53 @@ footer {
 
 <hr style="border-color:rgba(255,215,130,0.3);margin:25px 0;">  
 
-<h2>⭐ Make a Christmas Wish</h2>  
+<h2>⭐ What would you wish for this Christmas </h2>
 
-<p>What would you wish for this Christmas? 🎄</p>  
+<p>Make your christmas wishes here.  Note:This (your) message will be privacy 💌</p>
 
-<div class="wish-options">  
+<div class="wish-options">
+    <button onclick="chooseWish(this, '❤️ Love and happiness')">
+        ❤️ Love
+    </button>
 
-    <button onclick="chooseWish(this, '❤️ Love and happiness')">  
-        ❤️ Love  
-    </button>  
+    <button onclick="chooseWish(this, '😊 More smiles')">
+        😊 Happiness
+    </button>
 
-    <button onclick="chooseWish(this, '😊 More smiles')">  
-        😊 Happiness  
-    </button>  
+    <button onclick="chooseWish(this, '🌍 Peace for everyone')">
+        🕊️ Peace
+    </button>
 
-    <button onclick="chooseWish(this, '🌍 Peace for everyone')">  
-        🕊️ Peace  
-    </button>  
+    <button onclick="chooseWish(this, '✨ A beautiful new beginning')">
+        ✨ New beginnings
+    </button>
+</div>
+    
+    <input
+    type="text"
+    id="senderName"
+    maxlength="50"
+    placeholder="Your name... 🎅"
+    style="width:90%; padding:15px; margin:15px 0; border-radius:15px; font-size:18px;"
+>
 
-    <button onclick="chooseWish(this, '✨ A beautiful new beginning')">  
-        ✨ New beginnings  
-    </button>  
+<textarea
+    id="privateMessage"
+    maxlength="2000"
+    rows="5"
+    placeholder="Your christmes wish box... 💌"
+    style="width:100%; padding:12px; border-radius:12px;
+    font-family:Georgia,serif; font-size:16px; margin:15px 0;"
+></textarea>
 
-</div>  
+<button class="wish-button" onclick="submitPrivateMessage()">
+    💌 Click here to submit
+</button>
 
-<p class="result" id="wishMessage" aria-live="polite"></p>  
+<p class="result" id="wishMessage" aria-live="polite"></p>
+<p class="result" id="privateMessageStatus" aria-live="polite"></p>
 
-<button class="wish-button" onclick="saveWish()">  
-    ⭐ Make My Wish  
-</button>  
 
-<p class="note">  
-    Your wish stays in this page for now.  
-    It is not sent anywhere.  
-</p>
 
 </div>  <footer>  
     Made with ❤️ and Christmas magic ✨<br>  
@@ -608,14 +621,14 @@ setInterval(updateCountdown, 1000);
   
 // Replace this with your Google Form RESPONDER link later.  
   
-const formLink = "https://docs.google.com/forms/d/1y1KfsHn6Bw1AA8gWnH0sDTz7AQ3PM294NBTOV1iBxvQ/viewform";
+const formLink = "https://forms.gle/mjzrcLHU4jR8DcUH9";
   
 function openLetterForm() {  
   
     if (  
         !formLink.startsWith("https://") ||  
         formLink === ""  
-    ) { "https://docs.google.com/forms/d/1y1KfsHn6Bw1AA8gWnH0sDTz7AQ3PM294NBTOV1iBxvQ/viewform";
+    ) { "https://forms.gle/mjzrcLHU4jR8DcUH9";
         alert(  
             "The secret letter form has not been connected yet! 🎄"  
         );  
@@ -718,6 +731,7 @@ let selectedWish = "";
 function chooseWish(button, wish) {  
   
     selectedWish = wish;  
+    window.selectedWishForFirebase = wish;
   
     document.querySelectorAll(".wish-options button").forEach(  
         function(item) {  
@@ -879,7 +893,12 @@ setInterval(createSnow, 400);
     <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-analytics.js";
+  import { 
+      getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -897,7 +916,50 @@ setInterval(createSnow, 400);
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+  const db = getFirestore(app);
+    
+    
+   window.submitPrivateMessage = async function () {
+    const messageBox = document.getElementById("privateMessage");
+    const nameBox = document.getElementById("senderName");
+    const status = document.getElementById("privateMessageStatus");
+
+    const message = messageBox.value.trim();
+    const senderName = nameBox.value.trim();
+    const wish = window.selectedWishForFirebase || "";
+
+    if (!wish) {
+        status.textContent = "🎄 Please choose a Christmas wish first!";
+        return;
+    }
+
+    if (!senderName) {
+        status.textContent = "🎅 Please enter your name first!";
+        return;
+    }
+
+    if (!message) {
+        status.textContent = "💌 Please write your message first!";
+        return;
+    }
+
+    try {
+        await addDoc(collection(db, "privateMessages"), {
+            senderName: senderName,
+            wish: wish,
+            message: message,
+            createdAt: serverTimestamp()
+        });
+
+        status.textContent = "🎄 Your secret message has been submitted!";
+        messageBox.value = "";
+        nameBox.value = "";
+    } catch (error) {
+        console.error("Firebase submission error:", error);
+        status.textContent = "😔 Submission failed. Please try again.";
+    }
+};
+    
     </script>
 </body>  
 </html>      
